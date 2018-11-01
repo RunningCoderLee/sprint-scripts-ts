@@ -47,6 +47,8 @@ const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
 
 // common function to get style loaders
 const getStyleLoaders = (cssOptions, preProcessor) => {
@@ -350,6 +352,29 @@ module.exports = {
                 getLocalIdent: getCSSModuleLocalIdent,
               },
               'sass-loader'
+            ),
+          },
+          // Opt-in support for LESS (using .less extensions).
+          // Chains the less-loader with the css-loader and the style-loader
+          // to immediately apply all styles to the DOM.
+          // By default we support LESS Modules with the
+          // extensions .module.less
+          {
+            test: lessRegex,
+            exclude: lessModuleRegex,
+            use: getStyleLoaders({ importLoaders: 2 }, 'less-loader'),
+          },
+          // Adds support for CSS Modules, but using LESS
+          // using the extension .module.less
+          {
+            test: lessModuleRegex,
+            use: getStyleLoaders(
+              {
+                importLoaders: 2,
+                modules: true,
+                getLocalIdent: getCSSModuleLocalIdent,
+              },
+              'less-loader'
             ),
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.
