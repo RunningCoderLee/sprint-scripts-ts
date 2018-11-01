@@ -24,7 +24,13 @@ module.exports = (resolve, rootDir, isEjecting) => {
   // TODO: I don't know if it's safe or not to just use / as path separator
   // in Jest configs. We need help from somebody with Windows to determine this.
   const config = {
-    collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
+    collectCoverageFrom: [
+      'src/**/*.{js,jsx,ts,tsx}', 
+      '!src/**/*.d.ts',
+      '!src/index.{js,jsx,ts,tsx}',
+      '!<rootDir>/src/setupTests.{js,ts}',
+      '!<rootDir>/src/serviceWorker.{js,ts}'
+    ],
 
     // TODO: this breaks Yarn PnP on eject.
     // But we can't simply emit this because it'll be an absolute path.

@@ -1,9 +1,24 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
 import App from './App';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
+describe('Test App', () => {
+  it('renders without crashing!', () => {
+    shallow(<App />);
+  });
+
+  it('should renders learn react anchor!', () => {
+    const wrapper = shallow(<App />);
+    const learn = (
+      <a
+        className="App-link"
+        href="https://reactjs.org"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Learn React
+      </a>
+    )
+    expect(wrapper.contains(learn)).toEqual(true);
+  });
+})
