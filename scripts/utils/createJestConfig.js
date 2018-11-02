@@ -63,11 +63,12 @@ module.exports = (resolve, rootDir, isEjecting) => {
     },
     transformIgnorePatterns: [
       '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$',
-      '^.+\\.module\\.(css|sass|scss)$',
+      '^.+\\.module\\.(css|sass|scss|less)$',
     ],
     moduleNameMapper: {
       '^react-native$': 'react-native-web',
-      '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+      "^-/(.*)$": "<rootDir>/src/$1",
+      '^.+\\.module\\.(css|sass|scss|less)$': 'identity-obj-proxy',
     },
     moduleFileExtensions: [...paths.moduleFileExtensions, 'node'].filter(
       ext => !ext.includes('mjs')
