@@ -25,6 +25,8 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin-alt');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
+const lessToJs = require('less-vars-to-js');
+const themeVariables = lessToJs(fs.readFileSync(paths.antThemeVariables, 'utf-8'));
 // @remove-on-eject-begin
 const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
 // @remove-on-eject-end
@@ -51,7 +53,7 @@ const lessRegex = /\.less$/;
 const lessModuleRegex = /\.module\.less$/;
 
 // common function to get style loaders
-const getStyleLoaders = (cssOptions, preProcessor) => {
+const getStyleLoaders = (cssOptions, preProcessor, preProcessorOptions) => {
   const loaders = [
     require.resolve('style-loader'),
     {
@@ -80,7 +82,10 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
     },
   ];
   if (preProcessor) {
-    loaders.push(require.resolve(preProcessor));
+    loaders.push({
+      loader: require.resolve(preProcessor),
+      options: preProcessorOptions
+    });
   }
   return loaders;
 };
@@ -266,6 +271,14 @@ module.exports = {
                     },
                   },
                 ],
+                [
+                  require.resolve('babel-plugin-import'),
+                  {
+                    libraryName: 'antd',
+                    libraryDirectory: 'es',
+                    style: true,
+                  }
+                ]
               ],
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -363,7 +376,14 @@ module.exports = {
           {
             test: lessRegex,
             exclude: lessModuleRegex,
-            use: getStyleLoaders({ importLoaders: 2 }, 'less-loader'),
+            use: getStyleLoaders(
+              { importLoaders: 2 }, 
+              'less-loader',
+              {
+                modifyVars: themeVariables,
+                javascriptEnabled: true
+              }
+            ),
           },
           // Adds support for CSS Modules, but using LESS
           // using the extension .module.less

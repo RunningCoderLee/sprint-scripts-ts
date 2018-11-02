@@ -29,6 +29,8 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin-alt');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
+const lessToJs = require('less-vars-to-js');
+const themeVariables = lessToJs(fs.readFileSync(paths.antThemeVariables, 'utf-8'));
 // @remove-on-eject-begin
 const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
 // @remove-on-eject-end
@@ -69,7 +71,7 @@ const lessRegex = /\.less$/;
 const lessModuleRegex = /\.module\.less$/;
 
 // common function to get style loaders
-const getStyleLoaders = (cssOptions, preProcessor) => {
+const getStyleLoaders = (cssOptions, preProcessor, preProcessorOptions) => {
   const loaders = [
     {
       loader: MiniCssExtractPlugin.loader,
@@ -107,7 +109,9 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
   if (preProcessor) {
     loaders.push({
       loader: require.resolve(preProcessor),
-      options: {
+      options: preProcessorOptions ? Object.assign(preProcessorOptions, {
+        sourceMap: shouldUseSourceMap,
+      }) : {
         sourceMap: shouldUseSourceMap,
       },
     });
@@ -342,6 +346,14 @@ module.exports = {
                     },
                   },
                 ],
+                [
+                  require.resolve('babel-plugin-import'),
+                  {
+                    libraryName: 'antd',
+                    libraryDirectory: 'es',
+                    style: true,
+                  }
+                ]
               ],
               cacheDirectory: true,
               // Save disk space when time isn't as important
@@ -460,7 +472,11 @@ module.exports = {
                 importLoaders: 2,
                 sourceMap: shouldUseSourceMap,
               },
-              'sass-loader'
+              'less-loader',
+              {
+                modifyVars: themeVariables,
+                javascriptEnabled: true
+              }
             ),
             // Don't consider CSS imports dead code even if the
             // containing package claims to have no side effects.
@@ -479,7 +495,7 @@ module.exports = {
                 modules: true,
                 getLocalIdent: getCSSModuleLocalIdent,
               },
-              'sass-loader'
+              'less-loader'
             ),
           },
           // "file" loader makes sure assets end up in the `build` folder.
