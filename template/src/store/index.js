@@ -1,10 +1,10 @@
 import { init } from '@rematch/core'
 import storage from 'redux-persist/lib/storage'
 import * as models from '-/models'
- import createLoadingPlugin from '@rematch/loading'
+import createLoadingPlugin from '@rematch/loading'
 import createRematchPersist from '@rematch/persist'
- // Options 设置请参考
- // https://github.com/rematch/rematch/blob/master/plugins/loading/README.md#options
+// Options 设置请参考
+// https://github.com/rematch/rematch/blob/master/plugins/loading/README.md#options
 const loadingPlugin = createLoadingPlugin({})
 const persistPlugin = createRematchPersist({
   key: 'root',
@@ -14,7 +14,7 @@ const persistPlugin = createRematchPersist({
   storage,
 })
 //  const reactRouterPlugin = createReactRouterPlugin()
- const store = init({
+const store = init({
   models,
   plugins: [
     loadingPlugin,

@@ -15,4 +15,4 @@ const dolphins = {
   }),
 }
 
- export default dolphins
+export default dolphins

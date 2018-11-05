@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 const mapState = state => ({
   dolphins: state.dolphins,
@@ -13,7 +14,7 @@ const mapDispatch = dispatch => ({
   incrementSharksAsync2: () => dispatch({ type: 'sharks/incrementAsync', payload: 2 }),
 })
 
-const Count = props => {
+const Count = (props) => {
   const {
     dolphins,
     incrementDolphins,
@@ -42,6 +43,16 @@ const Count = props => {
       <p>Using Rematch Models</p>
     </div>
   )
+}
+
+Count.propTypes = {
+  dolphins: PropTypes.number.isRequired,
+  sharks: PropTypes.number.isRequired,
+  incrementDolphins: PropTypes.func.isRequired,
+  incrementDolphinsAsync: PropTypes.func.isRequired,
+  incrementSharks: PropTypes.func.isRequired,
+  incrementSharksAsync: PropTypes.func.isRequired,
+  incrementSharksAsync2: PropTypes.func.isRequired,
 }
 
 export default connect(mapState, mapDispatch)(Count)

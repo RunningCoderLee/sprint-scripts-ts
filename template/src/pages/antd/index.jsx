@@ -4,7 +4,7 @@ import logo from '-/assets/antd.svg'
 
 import styles from './antd.module.less'
 
- const Antd = () => (
+const Antd = () => (
   <div className={styles.container}>
     <header className={styles.header}>
       <img src={logo} className={styles.logo} alt="logo" />
@@ -27,4 +27,4 @@ import styles from './antd.module.less'
     </header>
   </div>
 )
- export default Antd
+export default Antd

@@ -5,7 +5,7 @@ import Antd from '-/pages/antd'
 import Count from '-/pages/count'
 import PageNotFound from '-/pages/pageNotFound'
 
-const Routes = ({ prop }) => (
+const Routes = () => (
   <Fragment>
     <Switch>
       <Route exact path="/react" component={ReactHome} />
