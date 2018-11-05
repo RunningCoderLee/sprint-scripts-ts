@@ -1,6 +1,6 @@
 {
   "name": "sprint-scripts",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Configuration and scripts for Create React App.",
   "repository": {
     "type": "git",
@@ -28,6 +28,8 @@
   "types": "./lib/react-app.d.ts",
   "dependencies": {
     "@babel/core": "7.1.0",
+    "@commitlint/cli": "7.2.1",
+    "@commitlint/config-conventional": "7.1.2",
     "@rematch/core": "1.0.6",
     "@rematch/loading": "1.1.2",
     "@rematch/persist": "1.1.5",
@@ -68,6 +70,7 @@
     "less": "3.8.1",
     "less-loader": "4.1.0",
     "less-vars-to-js": "1.3.0",
+    "lint-staged": "8.0.4",
     "mini-css-extract-plugin": "0.4.3",
     "moment": "2.22.2",
     "optimize-css-assets-webpack-plugin": "5.0.1",
@@ -84,6 +87,7 @@
     "resolve": "1.8.1",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.0",
+    "stylelint": "9.6.0",
     "terser-webpack-plugin": "1.1.0",
     "url-loader": "1.1.1",
     "webpack": "4.19.1",

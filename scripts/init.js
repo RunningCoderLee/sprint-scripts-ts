@@ -53,13 +53,56 @@ function tryGitInit(appPath) {
     didInit = true;
 
     execSync('git add -A', { stdio: 'ignore' });
-    execSync('git commit -m "Initial commit from Create React App"', {
+    execSync('git commit -m "chore(init): initial commit from create react app"', {
       stdio: 'ignore',
     });
     return true;
   } catch (e) {
     if (didInit) {
       // If we successfully initialized but couldn't commit,
+      // maybe the commit author config is not set.
+      // In the future, we might supply our own committer
+      // like Ember CLI does, but for now, let's just
+      // remove the Git files to avoid a half-done state.
+      try {
+        // unlinkSync() doesn't work on directories.
+        fs.removeSync(path.join(appPath, '.git'));
+      } catch (removeErr) {
+        // Ignore.
+      }
+    }
+    return false;
+  }
+}
+
+function tryInstallHusky(appPath, command) {
+  let didInstall = false;
+
+  console.log()
+  console.log(`Installing ${chalk.cyan('husky')} as dev dependency.`)
+  console.log()
+
+  const huskyProc = spawn.sync(command, ['add', '-D', '-E', 'husky'], {
+    stdio: 'inherit',
+  });
+
+  if (huskyProc.status !== 0) {
+    console.error(`\`${command} ${['add', '-D', '-E', 'husky'].join(' ')}\` failed`);
+    return didInstall;
+  }
+
+  didInstall = true;
+
+  try {
+    // Reusing the initialized commit to include changes in the package.json
+    execSync('git add -A', { stdio: 'ignore' });
+    execSync('git commit --amend --no-edit', {
+      stdio: 'ignore',
+    });
+    return true;
+  } catch (err) {
+    if (didInstall) {
+      // If we successfully installed but couldn't commit,
       // maybe the commit author config is not set.
       // In the future, we might supply our own committer
       // like Ember CLI does, but for now, let's just
@@ -102,12 +145,47 @@ module.exports = function(
   };
 
   // Setup the eslint config
-  appPackage.eslintConfig = {
-    extends: 'react-app',
-  };
+  // appPackage.eslintConfig = {
+  //   extends: 'react-app',
+  // };
 
   // Setup the browsers list
   appPackage.browserslist = defaultBrowsers;
+
+  // Setup the husky
+  appPackage.husky = {
+    hooks: {
+      'pre-commit': 'lint-staged',
+      'commit-msg': 'commitlint -E HUSKY_GIT_PARAMS'
+    }
+  },
+
+  // Setup the lint-staged
+  appPackage['lint-staged'] = {
+    'src/**/*.{js,jsx}': [
+      'eslint --fix',
+      'git add'
+    ],
+    'src/**/*.css': [
+      'stylelint --fix',
+      'git add'
+    ],
+    'src/**/*.scss': [
+      'stylelint --syntax=scss --fix',
+      'git add'
+    ],
+    'src/**/*.less': [
+      'stylelint --syntax=less --fix',
+      'git add'
+    ],
+  },
+
+  // Setup the commitlint
+  appPackage.commitlint = {
+    'extends': [
+      '@commitlint/config-conventional'
+    ]
+  }
 
   fs.writeFileSync(
     path.join(appPath, 'package.json'),
@@ -164,7 +242,41 @@ module.exports = function(
     command = 'npm';
     args = ['install', '--save', verbose && '--verbose'].filter(e => e);
   }
-  args.push('react', 'react-dom');
+
+  // TODO: if have any dependencies needs install, uncomment it
+  // install dependencies
+  // const deps = [];
+
+  // console.log(
+  //   `Installing ${chalk.cyan(deps.join(', '))} as dependencies ${command}...`
+  // );
+  // console.log();
+
+  // const depsProc = spawn.sync(command, args.concat(deps), {
+  //   stdio: 'inherit',
+  // });
+  // if (depsProc.status !== 0) {
+  //   console.error(`\`${command} ${args.concat(deps).join(' ')}\` failed`);
+  //   return;
+  // }
+
+  // Install dev dependencies
+  const devDeps = [
+    'stylelint-config-standard' 
+  ];
+
+  console.log(
+    `Installing ${chalk.cyan(devDeps.join(', '))} as dev dependencies ${command}...`
+  );
+  console.log();
+
+  const devProc = spawn.sync(command, args.concat(['-D', '-E']).concat(devDeps), {
+    stdio: 'inherit',
+  });
+  if (devProc.status !== 0) {
+    console.error(`\`${command} ${args.concat(devDeps).join(' ')}\` failed`);
+    return;
+  }
 
   // Install additional template dependencies, if present
   const templateDependenciesPath = path.join(
@@ -185,6 +297,7 @@ module.exports = function(
   // which doesn't install react and react-dom along with sprint-scripts
   // or template is presetend (via --internal-testing-template)
   if (!isReactInstalled(appPackage) || template) {
+    args.push('react', 'react-dom');
     console.log(`Installing react and react-dom using ${command}...`);
     console.log();
 
@@ -203,6 +316,8 @@ module.exports = function(
     console.log();
     console.log('Initialized a git repository.');
   }
+
+  tryInstallHusky(appPath, command)
 
   // Display the most elegant way to cd.
   // This needs to handle an undefined originalDirectory for
