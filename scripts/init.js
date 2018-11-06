@@ -262,7 +262,8 @@ module.exports = function(
 
   // Install dev dependencies
   const devDeps = [
-    'stylelint-config-standard' 
+    'stylelint-config-standard',
+    'stylelint-config-css-modules',
   ];
 
   console.log(
