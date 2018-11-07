@@ -495,7 +495,11 @@ module.exports = {
                 modules: true,
                 getLocalIdent: getCSSModuleLocalIdent,
               },
-              'less-loader'
+              'less-loader',
+              {
+                modifyVars: themeVariables,
+                javascriptEnabled: true
+              }
             ),
           },
           // "file" loader makes sure assets end up in the `build` folder.
