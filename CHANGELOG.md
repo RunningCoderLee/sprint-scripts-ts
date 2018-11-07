@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/RunningCoderLee/sprint-scripts/compare/v0.2.0...v0.2.1) (2018-11-07)
+
+
+### Features
+
+* **CRA:** 更新 CRA 2.1.1 代码 ([7a86b1c](https://github.com/RunningCoderLee/sprint-scripts/commit/7a86b1c))
+* add stylelint-config-css-modules ([011bbb1](https://github.com/RunningCoderLee/sprint-scripts/commit/011bbb1))
+* enable inline javaScript for less module ([f725de2](https://github.com/RunningCoderLee/sprint-scripts/commit/f725de2))
+
+
+
 <a name="0.2.0"></a>
 # 0.2.0 (2018-11-05)
 
