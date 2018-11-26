@@ -18,7 +18,7 @@ const baseRules = {
   'import/no-unresolved': ['error', { commonjs: true, caseSensitive: true, "ignore": [ '-/' ]}],
 }
 
-const prodRules = Object.assign(baseRules, {
+const prodRules = Object.assign({}, baseRules, {
   // disallow the use of console (no-console)
   // https://eslint.org/docs/rules/no-console#disallow-the-use-of-console-no-console
   'no-console': ['error', {
@@ -32,6 +32,7 @@ module.exports = {
     browser: true,
     jest: true
   },
+  parser: 'babel-eslint',
   extends: 'airbnb',
   rules: isProd ? prodRules : baseRules
 }
