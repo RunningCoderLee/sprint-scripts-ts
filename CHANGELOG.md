@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.2"></a>
+## [0.2.2](https://github.com/RunningCoderLee/sprint-scripts/compare/v0.2.1...v0.2.2) (2018-11-26)
+
+
+### Bug Fixes
+
+* **eslint:** 修复 eslint 配置中针对生产环境的特殊配置不生效的问题 ([73218b4](https://github.com/RunningCoderLee/sprint-scripts/commit/73218b4))
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/RunningCoderLee/sprint-scripts/compare/v0.2.0...v0.2.1) (2018-11-07)
 
