@@ -162,7 +162,7 @@ module.exports = function(
 
   // Setup the lint-staged
   appPackage['lint-staged'] = {
-    'src/**/*.{js,jsx}': [
+    'src/**/*.{js,jsx,ts,tsx}': [
       'eslint --fix',
       'git add'
     ],
@@ -245,26 +245,50 @@ module.exports = function(
 
   // TODO: if have any dependencies needs install, uncomment it
   // install dependencies
-  // const deps = [];
+  const deps = [
+    '@rematch/core@1.0.6',
+    '@rematch/loading@1.1.2',
+    '@rematch/persist@1.1.5',
+    'antd@3.10.3',
+    'axios@0.18.0',
+    'history@4.7.2',
+    'moment@2.22.2',
+    'react-redux@5.1.0',
+    'react-router-dom@4.3.1',
+    'redux-persist@5.10.0',
+  ];
 
-  // console.log(
-  //   `Installing ${chalk.cyan(deps.join(', '))} as dependencies ${command}...`
-  // );
-  // console.log();
+  console.log(
+    `Installing ${chalk.cyan(deps.join(', '))} as dependencies ${command}...`
+  );
+  console.log();
 
-  // const depsProc = spawn.sync(command, args.concat(deps), {
-  //   stdio: 'inherit',
-  // });
-  // if (depsProc.status !== 0) {
-  //   console.error(`\`${command} ${args.concat(deps).join(' ')}\` failed`);
-  //   return;
-  // }
+  const depsProc = spawn.sync(command, args.concat(deps), {
+    stdio: 'inherit',
+  });
+  if (depsProc.status !== 0) {
+    console.error(`\`${command} ${args.concat(deps).join(' ')}\` failed`);
+    return;
+  }
 
   // Install dev dependencies
   const devDeps = [
     'stylelint-config-standard',
     'stylelint-config-css-modules',
   ];
+
+  if (useTypeScript) {
+    devDeps.push(
+      '@types/react-router-dom',
+      '@types/enzyme',
+      '@types/enzyme-adapter-react-16',
+      '@types/history',
+      '@types/qs',
+      '@types/react-loadable',
+      '@types/react-redux',
+      '@types/webpack',
+    )
+  }
 
   console.log(
     `Installing ${chalk.cyan(devDeps.join(', '))} as dev dependencies ${command}...`

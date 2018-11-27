@@ -120,13 +120,32 @@ function verifyTypeScriptSetup() {
       value: 'preserve',
       reason: 'JSX is compiled by Babel',
     },
+    lib: {
+      suggested: ['es6', 'dom', 'esnext'],
+    },
+    sourceMap: { suggested: true },
+    noImplicitReturns: { suggested: true },
+    noFallthroughCasesInSwitch: { suggested: true },
+    noUnusedLocals: { suggested: true },
+    noUnusedParameters: { suggested: true },
+    importHelpers: { suggested: true },
+    strictNullChecks: { suggested: true },
+    suppressImplicitAnyIndexErrors: { suggested: true },
+    experimentalDecorators: { suggested: true },
     // We do not support absolute imports, though this may come as a future
     // enhancement
     baseUrl: {
-      value: undefined,
-      reason: 'absolute imports are not supported (yet)',
+      value: '.',
+      // value: undefined,
+      // reason: 'absolute imports are not supported (yet)',
     },
-    paths: { value: undefined, reason: 'aliased imports are not supported' },
+    // paths: { value: undefined, reason: 'aliased imports are not supported' },
+    paths: { 
+      value: {
+        '-/*': ['src/*']
+      },
+      // reason: 'aliased imports are not supported' 
+    },
   };
 
   const formatDiagnosticHost = {
