@@ -127,7 +127,6 @@ function verifyTypeScriptSetup() {
     noImplicitReturns: { suggested: true },
     noFallthroughCasesInSwitch: { suggested: true },
     noUnusedLocals: { suggested: true },
-    noUnusedParameters: { suggested: true },
     importHelpers: { suggested: true },
     strictNullChecks: { suggested: true },
     suppressImplicitAnyIndexErrors: { suggested: true },
