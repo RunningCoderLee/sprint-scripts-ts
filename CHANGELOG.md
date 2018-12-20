@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.4"></a>
+## [0.2.4](https://github.com/RunningCoderLee/sprint-scripts/compare/v0.2.3...v0.2.4) (2018-12-20)
+
+
+### Bug Fixes
+
+* 添加 eslint-plugin-typescript 和 typescript-eslint-parser 依赖安装 ([9ef5538](https://github.com/RunningCoderLee/sprint-scripts/commit/9ef5538))
+
+
+### Features
+
+* 添加 MP3 格式文件的 ts 声明 ([7d12171](https://github.com/RunningCoderLee/sprint-scripts/commit/7d12171))
+
+
+
 <a name="0.2.3"></a>
 ## [0.2.3](https://github.com/RunningCoderLee/sprint-scripts/compare/v0.2.2...v0.2.3) (2018-11-27)
 
