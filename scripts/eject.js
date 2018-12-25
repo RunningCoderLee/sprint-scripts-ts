@@ -38,6 +38,14 @@ function getGitStatus() {
   }
 }
 
+console.log(
+  chalk.cyan.bold(
+    'NOTE: Create React App 2 supports TypeScript, Sass, CSS Modules and more without ejecting: ' +
+      'https://reactjs.org/blog/2018/10/01/create-react-app-v2.html'
+  )
+);
+console.log();
+
 inquirer
   .prompt({
     type: 'confirm',
@@ -218,39 +226,23 @@ inquirer
     // };
 
     // Setup the husky
-    appPackage.husky = {
+    (appPackage.husky = {
       hooks: {
         'pre-commit': 'lint-staged',
-        'commit-msg': 'commitlint -E HUSKY_GIT_PARAMS'
-      }
-    },
-
-    // Setup the lint-staged
-    appPackage['lint-staged'] = {
-      'src/**/*.{js,jsx}': [
-        'eslint --fix',
-        'git add'
-      ],
-      'src/**/*.css': [
-        'stylelint --fix',
-        'git add'
-      ],
-      'src/**/*.scss': [
-        'stylelint --syntax=scss --fix',
-        'git add'
-      ],
-      'src/**/*.less': [
-        'stylelint --syntax=less --fix',
-        'git add'
-      ],
-    },
-
-    // Setup the commitlint
-    appPackage.commitlint = {
-      'extends': [
-        '@commitlint/config-conventional'
-      ]
-    }
+        'commit-msg': 'commitlint -E HUSKY_GIT_PARAMS',
+      },
+    }),
+      // Setup the lint-staged
+      (appPackage['lint-staged'] = {
+        'src/**/*.{js,jsx}': ['eslint --fix', 'git add'],
+        'src/**/*.css': ['stylelint --fix', 'git add'],
+        'src/**/*.scss': ['stylelint --syntax=scss --fix', 'git add'],
+        'src/**/*.less': ['stylelint --syntax=less --fix', 'git add'],
+      }),
+      // Setup the commitlint
+      (appPackage.commitlint = {
+        extends: ['@commitlint/config-conventional'],
+      });
 
     fs.writeFileSync(
       path.join(appPath, 'package.json'),

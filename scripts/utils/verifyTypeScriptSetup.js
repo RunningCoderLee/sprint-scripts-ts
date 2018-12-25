@@ -93,8 +93,9 @@ function verifyTypeScriptSetup() {
       parsedValue: ts.ScriptTarget.ES5,
       suggested: 'es5',
     },
+    lib: { suggested: ['dom', 'dom.iterable', 'esnext'] },
     allowJs: { suggested: true },
-    skipLibCheck: { suggested: false },
+    skipLibCheck: { suggested: true },
     esModuleInterop: { suggested: true },
     allowSyntheticDefaultImports: { suggested: true },
     strict: { suggested: true },
@@ -139,11 +140,11 @@ function verifyTypeScriptSetup() {
       // reason: 'absolute imports are not supported (yet)',
     },
     // paths: { value: undefined, reason: 'aliased imports are not supported' },
-    paths: { 
+    paths: {
       value: {
-        '-/*': ['src/*']
+        '-/*': ['src/*'],
       },
-      // reason: 'aliased imports are not supported' 
+      // reason: 'aliased imports are not supported'
     },
   };
 
