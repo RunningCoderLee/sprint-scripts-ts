@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.5"></a>
+## [0.2.5](https://github.com/RunningCoderLee/sprint-scripts/compare/v0.2.4...v0.2.5) (2018-12-25)
+
+
+### Features
+
+* **CRA:** 更新 CRA 2.1.2 代码 ([9f90fca](https://github.com/RunningCoderLee/sprint-scripts/commit/9f90fca))
+* 添加 对 prettier 的支持和修改部分 stylelint 规则 ([13b7f13](https://github.com/RunningCoderLee/sprint-scripts/commit/13b7f13))
+
+
+
 <a name="0.2.4"></a>
 ## [0.2.4](https://github.com/RunningCoderLee/sprint-scripts/compare/v0.2.3...v0.2.4) (2018-12-20)
 
