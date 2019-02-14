@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.6"></a>
+## [0.2.6](https://github.com/RunningCoderLee/sprint-scripts/compare/v0.2.5...v0.2.6) (2019-02-14)
+
+
+### Bug Fixes
+
+* 固定依赖包版本 ([da117f7](https://github.com/RunningCoderLee/sprint-scripts/commit/da117f7))
+
+
+
 <a name="0.2.5"></a>
 ## [0.2.5](https://github.com/RunningCoderLee/sprint-scripts/compare/v0.2.4...v0.2.5) (2018-12-25)
 
